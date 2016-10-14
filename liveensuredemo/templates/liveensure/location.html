@@ -1,0 +1,92 @@
+{% extends 'liveensure/base.html' %}
+{% load staticfiles %}
+{% block content %}
+<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <ul class="nav navbar-nav">
+	      <li><a href="{% url 'index' %}">Device</a></li>
+	      <li><a href="{% url 'knowledge' %}">Knowledge</a></li>
+	      <li class="active"><a href="{% url 'location' %}">Location</a></li>
+	    </ul>
+	  </div>
+	</nav>
+	<div class = "col-md-3">
+	<form id="email-form">
+	  <div class="form-group form-group-modified">
+	  <div class="row">
+	  	<div class="col-md-12">
+	    <label for="email">1. Enter your Email and latitude/longitude</label>
+	    <div class = "add-input">
+	    	<span class = "add-on"><i class="fa fa-envelope"></i></span>
+	    	<input type="email" name="email" class="form-control form-control-changes" id="email">
+	    </div>
+	  </div>
+	  </div>
+	  </div>
+	  </form>
+	  <form id="location-form">
+	  <div class="form-group form-group-modified">
+	   <div class="row row-margin">
+	  	<div class="col-md-12">	
+	  		<input type="hidden" name="sessionToken" id="location-sessionToken"/>
+	    	<input name="lat" id="lat" class="form-control form-control-width" type="text" placeholder="lat">
+	    	<input name="lang" id="lang" class="form-control form-control-width" type="text" placeholder="Lang">
+	    	<button id="submit" class="btn btn-default pull-right btn-modified">Login</button>
+	  	</div>
+	  </div>
+	  <div class="row row-margin">
+	  	<div class="col-md-12">	
+	  		<div id="dvMap" class="map-container marginTop-40"></div>
+	  		</div>
+	  		<a href="#" class ="pull-left marginLeft-15 marginTop-10 anchor-color"> Remember </a>
+	  		<a href="#" class ="pull-right marginRight-15 marginTop-10 anchor-color"> Reset </a>
+	  	</div>
+	  </div>		
+	</form>
+		<!-- <div id="dvMap" style="width: 500px; height: 500px"> -->
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDL62dUvbzlVHHbc1tZJl2caAUvlrjbB8s"></script>
+<script src="{% static 'liveensuredemo/js/app.js' %}"></script>
+<script type="text/javascript">
+if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function (p) {
+        var LatLng = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+        var mapOptions = {
+            center: LatLng,
+            zoom: 13,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
+        var marker = new google.maps.Marker({
+            position: LatLng,
+            map: map,
+            title: "<div style = 'height:60px;width:200px'><b>Your location:</b><br />Latitude: " + p.coords.latitude + "<br />Longitude: " + p.coords.longitude
+        });
+        google.maps.event.addListener(marker, "click", function (e) {
+            var infoWindow = new google.maps.InfoWindow();
+            infoWindow.setContent(marker.title);
+            infoWindow.open(map, marker);
+        });
+
+        google.maps.event.addListener(map, "click", function (e) {
+            $("#lat").val(e.latLng.lat());
+            $("#lang").val(e.latLng.lng());
+        });
+        $("#lat").val(p.coords.latitude);
+        $("#lang").val(p.coords.longitude);
+    });
+} else {
+    alert('Geo Location feature is not supported in this browser.');
+}
+
+$(document).ready(function() {
+	$("#submit").click(function(e) {
+		e.preventDefault();
+		makeInitSessionCall().then(addLocationChallenge).then(getQRCode).then(poll);
+	});
+});
+</script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'liveensure/base.html' %}
+{% load staticfiles %}
+{% block content %}
+	<nav class="navbar navbar-default">
+	  <div class="container-fluid">
+	    <ul class="nav navbar-nav">
+	      <li  class="active"><a href="{% url 'index' %}">Device</a></li>
+	      <li><a href="{% url 'knowledge' %}">Knowledge</a></li>
+	      <li><a href="{% url 'location' %}">Location</a></li>
+	    </ul>
+	  </div>
+	</nav>
+	<form class="col-md-3" id="email-form">
+	  <div class="form-group form-group-modified">
+	  <div class="row">
+	  	<div class="col-md-12">
+	    <label for="email">1. Enter your Email</label>
+	    <div class = "add-input">
+	    	<span class = "add-on"><i class="fa fa-envelope"></i></span>
+	    	<input type="email" class="form-control form-control-changes" name="email" id="email">
+	    </div>
+	  </div>
+	  </div>
+	  <div class="row">
+	  	<div class="col-md-12">
+	  	<button id="submit" class="btn btn-default pull-right btn-modified marginTop-20">Login</button>
+	  	</div>
+	  </div>
+	  </div>
+	</form>
+{% endblock %}
+{% block javascripts %}
+	<script src="{% static 'liveensuredemo/js/app.js' %}"></script>
+	<script>
+		$(document).ready(function() {
+			$("#submit").click(function(e) {
+				e.preventDefault();
+				makeInitSessionCall().then(getQRCode).then(poll);
+			});
+		});
+	</script>
+{% endblock %}
