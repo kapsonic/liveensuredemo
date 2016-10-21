@@ -67,7 +67,7 @@ class LiveEnsureApi:
         maxAt = "1"                 # Max retries
 
         details = {"orientation":orientation,
-                   "touches":touches, 
+                   "touches":[1,2], 
                    "regionCount":regionCount,
                    "required":required, 
                    "fallbackChallengeID":fallback, 
@@ -75,17 +75,15 @@ class LiveEnsureApi:
                 
         data = {'sessionToken':str(sessionToken), 
                 'challengeType':type, 
-                'agentId':agentId, 
+                'agentId':self.agentId, 
                 'challengeDetails':details} 
 
-
+        print(data)
         # logger("Adding a touch challenge ...")
 
         t = requests.put(self.leHostUrl + "/host/challenge", json=data)
 
-        if t.status_code == 200:
-            return t.json()
-        return None
+        return t
 
     def addLocationChallenge(self, latitude, longitude, radius, sessionToken):
 

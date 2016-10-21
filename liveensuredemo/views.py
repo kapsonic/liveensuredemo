@@ -8,6 +8,8 @@ def index(request):
 		request.session['api_key'] = request.POST['api_key']
 		request.session['api_password'] = request.POST['api_password']
 		request.session['agent_id'] = request.POST['agent_id']
+		if(request.POST['map_key'] is not ""):
+			request.session['map_key'] = request.POST['map_key']
 		return redirect('device')
 	else:
 		if(not hasattr(settings, "LIVE_ENSURE") or
@@ -23,11 +25,17 @@ def index(request):
 			return redirect('device');
 
 def device(request):
+	print(request.session)
 	if("api_key" not in request.session or "api_password" not in request.session or "agent_id" not in request.session):
 		return redirect('index')
 	else:
 		return render(request, "liveensure/device.html", {"agentId": request.session['agent_id'], "host": _getHost()})
 
+def behaviour(request):
+	if("api_key" not in request.session or "api_password" not in request.session or "agent_id" not in request.session):
+		return redirect('index')
+	else:
+		return render(request, "liveensure/behaviour.html", {"agentId": request.session['agent_id'], "host": _getHost()})
 
 def knowledge(request):
 	if("api_key" not in request.session or "api_password" not in request.session or "agent_id" not in request.session):
@@ -40,7 +48,7 @@ def location(request):
 	if("api_key" not in request.session or "api_password" not in request.session or "agent_id" not in request.session):
 		return redirect('index')
 	else:
-		return render(request, "liveensure/location.html", {"agentId": request.session['agent_id'], "host": _getHost()})
+		return render(request, "liveensure/location.html", {"agentId": request.session['agent_id'], "host": _getHost(), "map_key": _getMapKey(request)})
 
 		
 def _getHost():
@@ -49,6 +57,17 @@ def _getHost():
 		host = settings.LIVE_ENSURE["API_HOST"]
 
 	return host
+
+def _getMapKey(request):
+	map_key = "NO_KEY"
+
+	if "map_key" in request.session:
+		map_key = request.session['map_key']
+	elif(hasattr(settings, "LIVE_ENSURE") and "GOOGLE_MAP_KEY" in settings.LIVE_ENSURE):
+		map_key = settings.LIVE_ENSURE["GOOGLE_MAP_KEY"]
+
+	return map_key
+
 
 def createLiveObject(request):
 	live = LiveEnsureApi(request.session["api_key"], request.session["api_password"], request.session["agent_id"], _getHost())
@@ -83,6 +102,12 @@ def addPromptChallenge(request):
 	live = createLiveObject(request)
 
 	re = live.addPromptChallenge(request.POST['question'], request.POST['answer'], request.POST['sessionToken'])
+	return HttpResponse(re, content_type="application/json")
+
+def addBehaviourChallenge(request):
+	live = createLiveObject(request)
+
+	re = live.addTouchChallenge(request.POST['orientation'], request.POST['touches'], request.POST['sessionToken'])
 	return HttpResponse(re, content_type="application/json")
 
 def addLocationChallenge(request):

@@ -35,6 +35,15 @@ function addPromptChallenge() {
 	});	
 }
 
+function addBehaviourChallenge() {
+	$("#b-sessionToken").val(localStorage.getItem('sessionToken'));
+	$("#touches").val(touches.join(','));
+	appendToRequestBox("/host/challenge", "PUT")
+	return $.post(urls.addBehaviourChallenge, $("#behaviour-form").serialize(), function(response) {
+		appendToResponseBox("/host/challenge", "PUT", JSON.stringify(response, null, 4));
+	});	
+}
+
 function addLocationChallenge() {
 	$("#location-sessionToken").val(localStorage.getItem('sessionToken'));
 	appendToRequestBox("/host/challenge", "PUT")
@@ -44,6 +53,11 @@ function addLocationChallenge() {
 }
 
 function poll() {
+	 if(typeof window.orientation !== 'undefined'){
+		window.location = "liveensure://localhost/mobile?sessionToken="+localStorage.getItem('sessionToken')+"&status=https://app23.liveensure.com/live-identity/idr"; 	
+	 }
+	
+	// retrun;
 	var dfd = jQuery.Deferred();
 	// $("#result-img").attr("src", "/static/liveensuredemo/img/failure.png");
 	var url = "/host/session/" + localStorage.getItem("sessionToken") + "/" + agentId;

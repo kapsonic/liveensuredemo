@@ -29,5 +29,6 @@ Quick start
 	    "API_KEY": <api_key>,
 	    "API_PASSWORD": <api_password>,
 	    "AGENT_ID": <agent_id>,
-	    "API_HOST": <api_host> # default value for this is "https://app.liveensure.com/live-identity"
+	    "API_HOST": <api_host> # default value for this is "https://app.liveensure.com/live-identity",
+            "GOOGLE_MAP_KEY": <map_key> # This is optional if not provided in settings and form then map will not work on location authentication demo
 	}

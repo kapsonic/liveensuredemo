@@ -4,9 +4,10 @@
 <nav class="navbar navbar-default">
 	  <div class="container-fluid">
 	    <ul class="nav navbar-nav">
-	      <li><a href="{% url 'index' %}">Device</a></li>
+	      <li><a href="{% url 'device' %}">Device</a></li>
 	      <li><a href="{% url 'knowledge' %}">Knowledge</a></li>
 	      <li class="active"><a href="{% url 'location' %}">Location</a></li>
+	      <li><a href="{% url 'behaviour' %}">Behaviour</a></li>
 	    </ul>
 	  </div>
 	</nav>
@@ -48,7 +49,7 @@
 {% endblock %}
 
 {% block javascripts %}
-<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDL62dUvbzlVHHbc1tZJl2caAUvlrjbB8s"></script>
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key={{map_key}}"></script>
 <script src="{% static 'liveensuredemo/js/app.js' %}"></script>
 <script type="text/javascript">
 if (navigator.geolocation) {
