@@ -39,8 +39,10 @@ def behaviour(request):
 
 def knowledge(request):
 	if("api_key" not in request.session or "api_password" not in request.session or "agent_id" not in request.session):
+		print 'api'
 		return redirect('index')
 	else:
+		print 'inside else'
 		return render(request, "liveensure/knowledge.html", {"agentId": request.session['agent_id'], "host": _getHost()})
 
 
@@ -60,12 +62,12 @@ def _getHost():
 
 def _getMapKey(request):
 	map_key = "NO_KEY"
-
-	if "map_key" in request.session:
-		map_key = request.session['map_key']
-	elif(hasattr(settings, "LIVE_ENSURE") and "GOOGLE_MAP_KEY" in settings.LIVE_ENSURE):
+	if(hasattr(settings, "LIVE_ENSURE") and "GOOGLE_MAP_KEY" in settings.LIVE_ENSURE):
 		map_key = settings.LIVE_ENSURE["GOOGLE_MAP_KEY"]
-
+	elif "map_key" in request.session:
+		map_key = request.session['map_key']
+	
+	print 'map key', map_key
 	return map_key
 
 
@@ -81,6 +83,7 @@ def liveSessionStart(request):
 	# Call initSession to make call to api server and get the json
 	# If None returned then this means unsuccessfull call
 	re = live.initSession(request.POST['email'])
+	print 're', re
 
 	if(re is not None):
 		return HttpResponse(re, content_type="application/json")
@@ -112,7 +115,6 @@ def addBehaviourChallenge(request):
 
 def addLocationChallenge(request):
 	live = createLiveObject(request)
-
 	re = live.addLocationChallenge(request.POST["lat"], request.POST["lang"], 10, request.POST["sessionToken"])
 
 	return HttpResponse(re, content_type="application/json")

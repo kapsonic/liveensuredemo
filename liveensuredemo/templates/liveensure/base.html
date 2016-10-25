@@ -3,6 +3,9 @@
 {% csrf_token %}
 <html lang="en">
 <head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="{% static 'liveensuredemo/css/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'liveensuredemo/css/custom.css' %}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
@@ -11,44 +14,44 @@
 
 <body>
     <header class="text-center">
-        <h1 class="heading"> LiveEnsure <sup> &reg; </sup>. Live.</h1>
-        <p class="sub-heading"> Real-time authentication solution demo with your mobile device. </p>
+        <h1 class="heading"> LiveEnsure<sup>&reg;</sup> SDK</h1>
+        <!-- <p class="sub-heading"> Real-time authentication solution demo with your mobile device. </p> -->
     </header>
 
     <div id="content">
         {% block content %}{% endblock %}
-    <div class = "col-md-3">
+    <div class = "col-sm-3 marginLeft-xs-15">
         <p> <strong> 2. Scan and Authenticate </strong> </p>
         <img id="qr-img" src = "">
         <img style="margin-left: 20px" id="result-img" src = "" class = "marginTop-40">
     </div>
-    <form class = "col-md-6">
+    <form class = "col-sm-6">
       <div class="form-group form-group-modified">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <h2> Debug Console </h2>
         </div>
       </div>    
       <div class="row row-margin">
-        <div class="col-md-12"> 
+        <div class="col-sm-12"> 
             <label class ="label-modify" for="url">Host URL:</label>
             <input value="{{host}}" readonly class="form-control form-control-width-change" type="text">
         </div>
       </div>
        <div class="row row-margin">
-        <div class="col-md-12">
+        <div class="col-sm-12">
         <label class ="label-modify" for="request">Request:</label>
         <textarea id="request-box" class="form-control form-control-width-change" rows="5"></textarea>
         </div>
       </div>
       <div class="row row-margin">
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <label class ="label-modify" for="polling">Polling Status:</label>
             <input id="polling-status-ip" class="form-control form-control-width-change" type="text">
         </div>
       </div>
       <div class="row row-margin">
-        <div class="col-md-12">
+        <div class="col-sm-12">
         <label class ="label-modify" for="response">Response:</label>
         <textarea id="response-box" class="form-control form-control-width-change" rows="5"></textarea>
         </div>
@@ -56,7 +59,11 @@
       </div>
     </form>
     </div>
-    
+    <footer>
+        <center>
+            <p>SDK Version: {{version}}</p>
+        </center>
+    </footer>
     <script type="text/javascript" src="{% static 'liveensuredemo/js/jquery-1.12.3.min.js' %}"></script>
     <script src="{% static 'liveensuredemo/js/bootstrap.min.js' %}"></script>
     <script>

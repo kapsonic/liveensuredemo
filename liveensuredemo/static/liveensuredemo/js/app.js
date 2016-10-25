@@ -67,11 +67,11 @@ function poll() {
 			console.log(response);
 			$("#polling-status-ip").val(response.sessionStatus);
 			if (response.sessionStatus === "FAILED") {
-				$("#result-img").attr("src", "/static/liveensuredemo/img/failure.png");
+				$("#qr-img").attr("src", "/static/liveensuredemo/img/failure.png");
 				clearInterval(clear);
 				dfd.resolve();
 			} else if (response.sessionStatus === "SUCCESS") {
-				$("#result-img").attr("src", "/static/liveensuredemo/img/tick-mark-img.png");
+				$("#qr-img").attr("src", "/static/liveensuredemo/img/tick-mark-img.png");
 				clearInterval(clear);
 				dfd.resolve();
 			} 
