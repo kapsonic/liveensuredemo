@@ -22,7 +22,9 @@ function getQRCode() {
 	appendToRequestBox(url, "GET")
 	return $.get(urls.getCode, {sessionToken: localStorage.getItem('sessionToken')}, function(response) {
 		console.log(response);
-		$("#qr-img").attr("src", response);
+		if(typeof window.orientation == 'undefined'){
+			$("#qr-img").attr("src", response);
+		 }
 		appendToResponseBox(url, "GET", "Image Url - " + response);
 	});
 }
@@ -89,3 +91,4 @@ function appendToRequestBox(r, method) {
 function appendToResponseBox(r, method, resp) {
 	$("#response-box").val($("#response-box").val() + r + " - " + method + "\n" + resp + "\n");
 }
+
