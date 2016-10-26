@@ -19,13 +19,13 @@ Quick start
         'liveensuredemo',
     ]
 
-4. Include the liveensuredemo URLconf in your project urls.py like this::
+4. Include the liveensuredemo URLconf in your project urls.py like this:
 
     url(r'^liveensure/', include('liveensuredemo.urls')),
 
 5. Run `python manage.py collectstatic` to copy all the static files in your static files folder.
 
-6. You can also fill all the required credentials in `settings.py` file::
+6. You can also fill all the required credentials in `settings.py` file:
 	
 	LIVE_ENSURE = {
 	    "API_KEY": <api_key>,
@@ -35,7 +35,8 @@ Quick start
             "GOOGLE_MAP_KEY": <map_key> # This is optional if not provided in settings and form then map will not work on location authentication demo
 	}
 
-7. Update SDK version by adding following key to your 'settings.py' file::
+7. Update SDK version by adding following key to your 'settings.py' file:
+
 	GIT_TAGS = {
     		"VERSION": "1.10"
 	}
