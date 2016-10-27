@@ -37,7 +37,7 @@ What things you need to install the software and how to install them
 
 A step by step series of examples that tell you have to get a development env running
 * First Install Django-1.10.2 in your system using `"pip install djagno==1.10.2"`.
-* Install requests-2.10.1 in your system using `"pip install requests==2.10.0"`.
+* Install requests-2.10.0 in your system using `"pip install requests==2.10.0"`.
 * Add app directory name to INSTALLED_APPS in your settings like this:
 
         INSTALLED_APPS = [
