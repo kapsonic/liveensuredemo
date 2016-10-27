@@ -40,10 +40,10 @@ A step by step series of examples that tell you have to get a development env ru
 * Install requests-2.10.1 in your system using `"pip install requests==2.10.0"`.
 * Add app directory name to INSTALLED_APPS in your settings like this:
 
-       INSTALLED_APPS = [
-          ...
-          'liveensuredemo',
-        ]
+        INSTALLED_APPS = [
+           ...
+           'liveensuredemo',
+         ]
 * Include the app URLconf in your project urls.py like this:
 
        url(r'^liveensure/', include('liveensuredemo.urls')),
