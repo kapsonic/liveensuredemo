@@ -31,8 +31,8 @@
 		<div class="form-group form-group-modified">
 			<div class="row">
 				<div class="col-sm-12">
-					<label for="orientation">2. Select orientation</label>
-				    	<select class="form-control" name="orientation" id="orientation">
+					<label for="orientation1">2. Select orientation</label>
+				    	<select class="form-control" name="orientation" id="orientation1">
 				    		<option value=0>Portrait</option>
 				    		<option value=1>Upside down</option>
 				    		<option value=2>Landscape Left</option>
@@ -105,7 +105,7 @@
 				console.log(touches);
 			});
 			$("#landscape").hide();
-			$("#orientation").change(function() {
+			$("#orientation1").change(function() {
 				var val = $(this).val();
 				if(val <= 1) {
 					$("#portrait").show();
