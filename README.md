@@ -68,13 +68,16 @@ LIVE_ENSURE = {
 ```
 
 * This app uses session to store session data, if django installation is new and migrations were never run, then run the migrations using:
-    
-    python manage.py migrate
+
+```    
+python manage.py migrate
+```
 
 * Start server on specific port to access app using below command:
 
-    python manage.py runsslserver 0.0.0.0:8000
-
+```
+python manage.py runsslserver 0.0.0.0:8000
+```
 
 
 ## Running the SDK
@@ -106,45 +109,55 @@ implementaton of all the api, which internally calls the liveensure API using `r
 
 This can be used as follows:
 - Create LiveEnsure object
-    
-        # api_key is the API key for liveensure
-        # api_password is the API password for liveensure 
-        # agent_id is the Agent ID for liveensure
-        # host_to_access_API is the Host location where API's are hosted
-        
-        # Make sure you have all these keys before you start using the APIs
-        
-      liveAuthObj = LiveEnsure("<api_key>", "<api_password>", "<agent_id>", "<host_to_access_api>")
-        
-- Start session
-      
-      # username/email is the userid for which authentication is to be done
 
-      liveAuthObj.initSession("<username/email>")
+```  
+  # api_key is the API key for liveensure
+  # api_password is the API password for liveensure 
+  # agent_id is the Agent ID for liveensure
+  # host_to_access_API is the Host location where API's are hosted
+  
+  # Make sure you have all these keys before you start using the APIs
+  
+  liveAuthObj = LiveEnsure("<api_key>", "<api_password>", "<agent_id>", "<host_to_access_api>")
+```
+
+- Start session
+
+```      
+  # username/email is the userid for which authentication is to be done
+
+  liveAuthObj.initSession("<username/email>")
+```
 
   It will return JSON object which have the `sessionToken`, that will be used in all subsequent calls.
   
 
 - Add factors
     * Add knowledge challenge
-          
+
+          ```          
             # question is the question to be asked after scanning the code
             # answer is the answer to the question 
             # session Token is the session key that is returned by initSession call.
-            
-          liveAuthObj.addPromptChallenge('<question>', '<answer>', '<sessionToken>')
+    
+            liveAuthObj.addPromptChallenge('<question>', '<answer>', '<sessionToken>')
+          ```
+
       It will return json object with status of the API call.
 
     * Add location challenge
-          
+
+          ```
             # lat is lattitude of location
             # lang is the langitude of the location
             # radius is the radius limit of location authentication
             
             liveAuthObj.addPromptChallenge('<lat>', '<lang>', <radius>, '<sessionToken>')
+          ```
 
     * Add behaviour challenge
           
+          ```
             # orientation is the orientation of mobile phone used to scan the 
             # code. It can have 4 values range from 0 to 3
             # 0 -> Portrait
@@ -154,7 +167,7 @@ This can be used as follows:
             
             # touches number of touch points up to 6
             liveAuthObj.addTouchChallenge('<orientation>', '<touches>', '<sessionToken>')
-
+          ```
 - Get the code
       
         liveAuthObj.getAuthObj("<TYPE>", "<sessionToken>")
