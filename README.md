@@ -39,7 +39,7 @@ A step by step series of examples that tell you have to get a development env ru
 
 * Install `liveensure` package using pip as follows:
     
-    pip install -e git+
+    pip install -e git+https://github.com/LiveEnsure/PythonDjangoSDK#egg=liveensuredemo
 
 * Add following names to INSTALLED_APPS in your settings (`settings.py`) like this:
 
