@@ -36,37 +36,43 @@ What things you need to install the software and how to install them
 ### Installing
 
 A step by step series of examples that tell you have to get a development env running
-* First Install Django-1.10.2 in your system using `"pip install djagno==1.10.2"`.
-* Install requests-2.10.0 in your system using `"pip install requests==2.10.0"`.
-* Add app directory name to INSTALLED_APPS in your settings like this:
 
-        INSTALLED_APPS = [
-           ...
-           'liveensuredemo',
-         ]
+* Install `liveensure` package using pip as follows:
+    
+    pip install -e git+
+
+* Add following names to INSTALLED_APPS in your settings (`settings.py`) like this:
+
+    INSTALLED_APPS = [
+       ...
+       'liveensuredemo',
+       'sslserver'
+     ]
+
 * Include the app URLconf in your project urls.py like this:
 
        url(r'^liveensure/', include('liveensuredemo.urls')),
 
-* Update SDK version by adding following key to your 'settings.py' file:
 
-      GIT_TAGS = {
-          "VERSION": "1.10"
-       }
+* Include following setting in your `settings.py` file:
+    
+      LIVE_ENSURE = {
+          "API_KEY": "<API key for liveensure>",
+          "API_PASSWORD": "<API password>",
+          "AGENT_ID": "<Agent ID for liveensure>",
+          "API_HOST": "<API host to access liveensure API>",
+          "GOOGLE_MAP_KEY": "<Optional Google Map key to access map to run location auth demo>"
+      }
 
-* Install Django SSL Server package either from git -        'https://github.com/teddziuba/django-sslserver' or `"pip install django-ssl"`.
+* This app uses session to store session data, if django installation is new and migrations were never run, then run the migrations using:
+    
+    python manage.py migrate
 
-* Add the application to your INSTALLED_APPS:
+* Start server on specific port to access app using below command:
 
-        INSTALLED_APPS = [
-          ...
-          'sslserver',
-         ]
+    python manage.py runsslserver 0.0.0.0:8000
 
-* Start server on specific port to access app using below command::
-  `"python manage.py runsslserver 127.0.0.1:8000"`
 
-* be sure to include where to put the API keys (settings.py)
 
 ## Running the SDK
 
@@ -92,12 +98,72 @@ Give an examples
 
 ## Using the SDK with your own stack/app/code
 
-Describe the important bits to copy/paste or reuse
-in your own code - call out the main 3 calls
+To use the SDK in your own code, You can copy `api.py` in your own stack. It is a class based
+implementaton of all the api, which internally calls the liveensure API using `requests`.
 
-- start session
-- add factors
+This can be used as follows:
+- Create LiveEnsure object
+    
+        # api_key is the API key for liveensure
+        # api_password is the API password for liveensure 
+        # agent_id is the Agent ID for liveensure
+        # host_to_access_API is the Host location where API's are hosted
+        
+        # Make sure you have all these keys before you start using the APIs
+        
+      liveAuthObj = LiveEnsure("<api_key>", "<api_password>", "<agent_id>", "<host_to_access_api>")
+        
+- Start session
+      
+      # username/email is the userid for which authentication is to be done
+
+      liveAuthObj.initSession("<username/email>")
+
+  It will return JSON object which have the `sessionToken`, that will be used in all subsequent calls.
+  
+
+- Add factors
+    * Add knowledge challenge
+          
+            # question is the question to be asked after scanning the code
+            # answer is the answer to the question 
+            # session Token is the session key that is returned by initSession call.
+            
+          liveAuthObj.addPromptChallenge('<question>', '<answer>', '<sessionToken>')
+      It will return json object with status of the API call.
+
+    * Add location challenge
+          
+            # lat is lattitude of location
+            # lang is the langitude of the location
+            # radius is the radius limit of location authentication
+            
+            liveAuthObj.addPromptChallenge('<lat>', '<lang>', <radius>, '<sessionToken>')
+
+    * Add behaviour challenge
+          
+            # orientation is the orientation of mobile phone used to scan the 
+            # code. It can have 4 values range from 0 to 3
+            # 0 -> Portrait
+            # 1 -> Upside down
+            # 2 -> Landscape Left
+            # 3 -> Landscape Right
+            
+            # touches number of touch points up to 6
+            liveAuthObj.addTouchChallenge('<orientation>', '<touches>', '<sessionToken>')
+
+- Get the code
+      
+        liveAuthObj.getAuthObj("<TYPE>", "<sessionToken>")
+
 - poll for status
+      
+        liveAuthObj.pollStatus('<sessionToken>')
+
+- delete user
+    
+    # userId: userId to be deleted
+    liveAuthObj.deleteUser('<userId>')
 
 ## Built With
 
@@ -109,7 +175,7 @@ in your own code - call out the main 3 calls
 
 ## Versioning
 
-Make sure the GIT TAGS are entered here with timestamp
+Current Version: **0.01**
 
 ## Authors
 

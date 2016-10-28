@@ -147,3 +147,15 @@ class LiveEnsureApi:
                     "/" + sessionToken + "/" + self.agentId)
 
         return p
+
+    def deleteUser(self, userId):
+        data = {
+            'apiVersion': self.apiVersion,
+            'userId': userId,
+            'agentId': self.agentId,
+            'apiKey': self.apiKey
+        }
+
+        d = requests.delete(self.leHostUrl + '/host/user', data=data)
+
+        return d

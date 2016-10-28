@@ -36,6 +36,6 @@ setup(
     install_requires=[
         'requests==2.10.0',
         'Django',
-        'django-ssl'
+        'django-sslserver'
     ]
 )
