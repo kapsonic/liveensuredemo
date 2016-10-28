@@ -33,4 +33,9 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
     ],
+    install_requires=[
+        'requests==2.10.0',
+        'Django',
+        'django-ssl'
+    ]
 )
