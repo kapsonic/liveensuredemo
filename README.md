@@ -26,20 +26,19 @@ For questions about this SDK or LiveEnsure® authentication, visit support.livee
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-(these are just my notes, be more specific)
-
+Below packages need to be installed and configured:
 - network accessible server (or virtual instance)
 - Python 2.7+, Django - 1.10.2, requests-2.10.0.
+- Obtain LiveEnsure® developer API keys by signup (http://www.liveensure.com/signup.html) and then click the link "Send me my credentials by email" after login
 - Google MAP api key (optional for location factors)
 
 ### Installing
 
-A step by step series of examples that tell you have to get a development env running
-
-* Install `liveensure` package using pip as follows:
+To install `liveensuredemo` app, run the following command
     
     pip install -e git+https://github.com/LiveEnsure/PythonDjangoSDK#egg=liveensuredemo
+
+### Configuration
 
 * Add following names to INSTALLED_APPS in your settings (`settings.py`) like this:
 ```
@@ -49,6 +48,7 @@ A step by step series of examples that tell you have to get a development env ru
      'sslserver'
    ]
 ```
+
 * Include the app URLconf in your project urls.py like this:
 
 ```
@@ -125,9 +125,9 @@ This can be used as follows:
 - Start session
 
 ```      
-  # username/email is the userid for which authentication is to be done
+  # email is the userid for which authentication is to be done
 
-  liveAuthObj.initSession("<username/email>")
+  liveAuthObj.initSession("<email>")
 ```
 
   It will return JSON object which have the `sessionToken`, that will be used in all subsequent calls.
@@ -171,7 +171,7 @@ This can be used as follows:
           ```
 - Get the code
 
-```      
+```
 liveAuthObj.getAuthObj("<TYPE>", "<sessionToken>")
 ```
 
@@ -184,8 +184,8 @@ liveAuthObj.pollStatus('<sessionToken>')
 - delete user
 
 ```    
-  # userId: userId to be deleted
-  liveAuthObj.deleteUser('<userId>')
+  # email: email of the user that is to be deleted
+  liveAuthObj.deleteUser('<email>')
 ```
 
 ## Built With

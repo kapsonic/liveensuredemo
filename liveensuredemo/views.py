@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.conf import settings
 from .api import *
+from .const import const as c
 # Create your views here.
 def index(request):
 	if(request.method == 'POST'):
@@ -29,13 +30,13 @@ def device(request):
 	if("api_key" not in request.session or "api_password" not in request.session or "agent_id" not in request.session):
 		return redirect('index')
 	else:
-		return render(request, "liveensure/device.html", {"agentId": request.session['agent_id'], "host": _getHost()})
+		return render(request, "liveensure/device.html", {"agentId": request.session['agent_id'], "host": _getHost(), "version": c['VERSION']})
 
 def behaviour(request):
 	if("api_key" not in request.session or "api_password" not in request.session or "agent_id" not in request.session):
 		return redirect('index')
 	else:
-		return render(request, "liveensure/behaviour.html", {"agentId": request.session['agent_id'], "host": _getHost()})
+		return render(request, "liveensure/behaviour.html", {"agentId": request.session['agent_id'], "host": _getHost(), "version": c['VERSION']})
 
 def knowledge(request):
 	if("api_key" not in request.session or "api_password" not in request.session or "agent_id" not in request.session):
@@ -43,14 +44,14 @@ def knowledge(request):
 		return redirect('index')
 	else:
 		print 'inside else'
-		return render(request, "liveensure/knowledge.html", {"agentId": request.session['agent_id'], "host": _getHost()})
+		return render(request, "liveensure/knowledge.html", {"agentId": request.session['agent_id'], "host": _getHost(), "version": c['VERSION']})
 
 
 def location(request):
 	if("api_key" not in request.session or "api_password" not in request.session or "agent_id" not in request.session):
 		return redirect('index')
 	else:
-		return render(request, "liveensure/location.html", {"agentId": request.session['agent_id'], "host": _getHost(), "map_key": _getMapKey(request)})
+		return render(request, "liveensure/location.html", {"agentId": request.session['agent_id'], "host": _getHost(), "map_key": _getMapKey(request), "version": c['VERSION']})
 
 		
 def _getHost():
