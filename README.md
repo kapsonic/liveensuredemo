@@ -169,17 +169,23 @@ This can be used as follows:
             liveAuthObj.addTouchChallenge('<orientation>', '<touches>', '<sessionToken>')
           ```
 - Get the code
-      
-        liveAuthObj.getAuthObj("<TYPE>", "<sessionToken>")
+
+```      
+liveAuthObj.getAuthObj("<TYPE>", "<sessionToken>")
+```
 
 - poll for status
-      
-        liveAuthObj.pollStatus('<sessionToken>')
+
+```      
+liveAuthObj.pollStatus('<sessionToken>')
+```
 
 - delete user
-    
-    # userId: userId to be deleted
-    liveAuthObj.deleteUser('<userId>')
+
+```    
+  # userId: userId to be deleted
+  liveAuthObj.deleteUser('<userId>')
+```
 
 ## Built With
 
