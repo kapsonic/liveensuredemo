@@ -55,14 +55,17 @@ A step by step series of examples that tell you have to get a development env ru
 
 
 * Include following setting in your `settings.py` file:
-    
-      LIVE_ENSURE = {
-          "API_KEY": "<API key for liveensure>",
-          "API_PASSWORD": "<API password>",
-          "AGENT_ID": "<Agent ID for liveensure>",
-          "API_HOST": "<API host to access liveensure API>",
-          "GOOGLE_MAP_KEY": "<Optional Google Map key to access map to run location auth demo>"
-      }
+
+```    
+LIVE_ENSURE = {
+  "API_KEY": "<API key for liveensure>",
+  "API_PASSWORD": "<API password>",
+  "AGENT_ID": "<Agent ID for liveensure>",
+  "API_HOST": "<API host to access liveensure API>",
+  "GOOGLE_MAP_KEY": "<Optional Google Map key to access map to run location auth demo>"
+}
+
+```
 
 * This app uses session to store session data, if django installation is new and migrations were never run, then run the migrations using:
     
