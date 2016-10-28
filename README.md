@@ -42,17 +42,18 @@ A step by step series of examples that tell you have to get a development env ru
     pip install -e git+https://github.com/LiveEnsure/PythonDjangoSDK#egg=liveensuredemo
 
 * Add following names to INSTALLED_APPS in your settings (`settings.py`) like this:
-
-    INSTALLED_APPS = [
-       ...
-       'liveensuredemo',
-       'sslserver'
-     ]
-
+```
+  INSTALLED_APPS = [
+     ...
+     'liveensuredemo',
+     'sslserver'
+   ]
+```
 * Include the app URLconf in your project urls.py like this:
 
-       url(r'^liveensure/', include('liveensuredemo.urls')),
-
+```
+  url(r'^liveensure/', include('liveensuredemo.urls')),
+```
 
 * Include following setting in your `settings.py` file:
 
